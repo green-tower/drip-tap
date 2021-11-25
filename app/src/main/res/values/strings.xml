@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Drip Tap</string>
     <string name="drip_formula">Drip Formula</string>
+    <string name="frequency_settings">Ajuste</string>
 </resources>
