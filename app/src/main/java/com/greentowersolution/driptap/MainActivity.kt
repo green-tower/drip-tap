@@ -38,7 +38,8 @@ fun MainScreen() {
     val navController = rememberNavController()
 
     val bottomNavigationItems = listOf(
-        BottomNavigationScreens.DripFormula
+        BottomNavigationScreens.DripFormula,
+        BottomNavigationScreens.FrequencySettings
     )
 
     Scaffold(
@@ -52,13 +53,9 @@ fun MainScreen() {
             Modifier.padding(innerPadding)
         ) {
             composable(BottomNavigationScreens.DripFormula.route) { DripFormula() }
+            composable(BottomNavigationScreens.FrequencySettings.route) { FrequencySettings() }
         }
     }
-}
-
-@Composable
-private fun DripFormula() {
-    Text(text = "It works!")//Todo remove this and create a file for the drip formula screen
 }
 
 @Composable
@@ -88,4 +85,5 @@ private fun AppBottomNavigation(
 
 sealed class BottomNavigationScreens(val route: String, @StringRes val resourceId: Int) {
     object DripFormula : BottomNavigationScreens("DripFormula", R.string.drip_formula)
+    object FrequencySettings : BottomNavigationScreens("FrequencySettings", R.string.drip_formula)
 }
