@@ -1,5 +1,6 @@
 package com.greentowersolution.driptap
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,7 @@ fun DripFormula() {
     var result by remember { mutableStateOf("Result") }
 
     MaterialTheme(
-        colors = darkColors(),
+        colors = if (isSystemInDarkTheme()) darkColors() else lightColors(),
     ) {
 
         Column(
