@@ -1,4 +1,4 @@
-package com.greentowersolution.driptap
+package com.greentowersolution.driptap.feature_drip.presentation.drip_formula
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,7 @@ fun DripFormula() {
 
     var volume by remember { mutableStateOf("") }
     var hours by remember { mutableStateOf("") }
-    var result by remember { mutableStateOf("Result") }
+    val result by remember { mutableStateOf("Result") }
 
     MaterialTheme(
         colors = if (isSystemInDarkTheme()) darkColors() else lightColors(),

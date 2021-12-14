@@ -1,9 +1,8 @@
-package com.greentowersolution.driptap
+package com.greentowersolution.driptap.feature_drip.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,12 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.greentowersolution.driptap.feature_drip.presentation.drip_formula.DripFormula
+import com.greentowersolution.driptap.feature_drip.presentation.frequency_settings.FrequencySettingsScreen
+import com.greentowersolution.driptap.feature_drip.presentation.frequency_settings.FrequencySettingsViewModel
+import com.greentowersolution.driptap.feature_drip.presentation.util.Screen
 import com.greentowersolution.driptap.ui.theme.DripTapTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,8 +42,8 @@ fun MainScreen() {
     val navController = rememberNavController()
 
     val bottomNavigationItems = listOf(
-        BottomNavigationScreens.DripFormula,
-        BottomNavigationScreens.FrequencySettings
+        Screen.DripFormula,
+        Screen.FrequencySettings
     )
 
     Scaffold(
@@ -49,11 +53,14 @@ fun MainScreen() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = BottomNavigationScreens.DripFormula.route,
+            startDestination = Screen.DripFormula.route,
             Modifier.padding(innerPadding)
         ) {
-            composable(BottomNavigationScreens.DripFormula.route) { DripFormula() }
-            composable(BottomNavigationScreens.FrequencySettings.route) { FrequencySettings() }
+            composable(Screen.DripFormula.route) { DripFormula() }
+            composable(Screen.FrequencySettings.route) {
+                val viewModel = viewModel<FrequencySettingsViewModel>()
+                FrequencySettingsScreen(viewModel)
+            }
         }
     }
 }
@@ -61,7 +68,7 @@ fun MainScreen() {
 @Composable
 private fun AppBottomNavigation(
     navController: NavHostController,
-    items: List<BottomNavigationScreens>
+    items: List<Screen>
 ) {
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -81,9 +88,4 @@ private fun AppBottomNavigation(
             )
         }
     }
-}
-
-sealed class BottomNavigationScreens(val route: String, @StringRes val resourceId: Int) {
-    object DripFormula : BottomNavigationScreens("DripFormula", R.string.drip_formula)
-    object FrequencySettings : BottomNavigationScreens("FrequencySettings", R.string.drip_formula)
 }
