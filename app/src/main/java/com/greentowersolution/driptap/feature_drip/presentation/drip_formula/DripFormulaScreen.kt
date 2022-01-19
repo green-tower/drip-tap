@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
@@ -27,8 +28,8 @@ fun DripFormula(
         modifier = Modifier.fillMaxSize()
     ) {
         TextField(
-            value = viewModel.volume.value.toString(),
-            onValueChange = { viewModel.volume.value = it.toLong() },
+            value = viewModel.volume.value,
+            onValueChange = { viewModel.volume.value = it },
             label = { Text("Volume") },
             textStyle = TextStyle(
                 fontStyle = FontStyle.Normal,
@@ -42,9 +43,9 @@ fun DripFormula(
             ),
         )
         TextField(
-            value = viewModel.hours.value.toString(),
+            value = viewModel.hours.value,
             onValueChange = {
-                viewModel.hours.value = it.toLong()
+                viewModel.hours.value = it
             },
             label = { Text("Hours") },
             textStyle = TextStyle(
@@ -55,7 +56,7 @@ fun DripFormula(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next,
                 capitalization = KeyboardCapitalization.None,
-                autoCorrect = false
+                autoCorrect = false,
             ),
         )
         Checkbox(
@@ -64,7 +65,11 @@ fun DripFormula(
                 viewModel.useMicroDrips.value = it
             },
         )
-        Button(onClick = { viewModel.dripFormula() }) {
+        Button(onClick = {
+            if (viewModel.isValid()) {
+                viewModel.dripFormula()
+            }
+        }) {
             Text(
                 text = "Calcular formula",
                 textAlign = TextAlign.Center
