@@ -1,6 +1,6 @@
 package com.greentowersolution.driptap.feature_drip.presentation.drip_formula
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import android.widget.TextView
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +27,7 @@ fun DripFormula(
         modifier = Modifier.fillMaxSize()
     ) {
         TextField(
-            value = viewModel.volume.toString(),
+            value = viewModel.volume.value.toString(),
             onValueChange = { viewModel.volume.value = it.toLong() },
             label = { Text("Volume") },
             textStyle = TextStyle(
@@ -42,11 +42,11 @@ fun DripFormula(
             ),
         )
         TextField(
-            value = viewModel.hours.toString(),
+            value = viewModel.hours.value.toString(),
             onValueChange = {
                 viewModel.hours.value = it.toLong()
             },
-            label = { Text("Label") },
+            label = { Text("Hours") },
             textStyle = TextStyle(
                 fontStyle = FontStyle.Normal,
                 textAlign = TextAlign.End,
@@ -58,6 +58,12 @@ fun DripFormula(
                 autoCorrect = false
             ),
         )
+        Checkbox(
+            checked = viewModel.useMicroDrips.value,
+            onCheckedChange = {
+                viewModel.useMicroDrips.value = it
+            },
+        )
         Button(onClick = { viewModel.dripFormula() }) {
             Text(
                 text = "Calcular formula",
@@ -65,9 +71,10 @@ fun DripFormula(
             )
         }
         Text(
-            viewModel.resultHowMuchDripsPerMinute.toString(),
+            viewModel.resultHowMuchDripsPerMinute.value.toString(),
             fontSize = 50.sp,
             textAlign = TextAlign.Center,
         )
     }
+
 }
