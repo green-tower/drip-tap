@@ -1,5 +1,6 @@
 package com.greentowersolution.driptap.feature_drip.presentation.drip_formula
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,8 +15,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.greentowersolution.driptap.composables.LabeledCheckbox
+import com.greentowersolution.driptap.feature_drip.domain.use_case.DripFormula
 
 @Composable
 fun DripFormula(
@@ -82,5 +85,22 @@ fun DripFormula(
             textAlign = TextAlign.Center,
         )
     }
+}
 
+
+@Preview(
+    name = "Light mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true,
+)
+@Preview(
+    name = "Dark mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
+@Composable
+fun DripFormulaPreview(){
+    Surface {
+        DripFormula(viewModel = DripFormulaViewModel(DripFormula()))
+    }
 }
