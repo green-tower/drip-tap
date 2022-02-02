@@ -1,6 +1,5 @@
 package com.greentowersolution.driptap.feature_drip.presentation.drip_formula
 
-import android.widget.TextView
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,9 +13,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.greentowersolution.driptap.composables.LabeledCheckbox
 
 @Composable
 fun DripFormula(
@@ -58,12 +57,14 @@ fun DripFormula(
                 capitalization = KeyboardCapitalization.None,
                 autoCorrect = false,
             ),
-        )
-        Checkbox(
+
+            )
+        LabeledCheckbox(
             checked = viewModel.useMicroDrips.value,
             onCheckedChange = {
                 viewModel.useMicroDrips.value = it
             },
+            text = "Use Micro Drips",
         )
         Button(onClick = {
             if (viewModel.isValid()) {
