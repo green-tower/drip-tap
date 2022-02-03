@@ -26,11 +26,13 @@ class DripFormulaViewModel(
         try {
             volume.value.toLong()
         } catch (e: NumberFormatException) {
+            volume.value = ""
             return false
         }
         try {
             hours.value.toLong()
         } catch (e: NumberFormatException) {
+            hours.value = ""
             return false
         }
         return true
