@@ -20,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.greentowersolution.driptap.feature_drip.presentation.drip_formula.DripFormula
 import com.greentowersolution.driptap.feature_drip.presentation.drip_formula.DripFormulaViewModel
+import com.greentowersolution.driptap.feature_drip.presentation.drip_validator.DripValidatorScreen
 import com.greentowersolution.driptap.feature_drip.presentation.frequency_settings.FrequencySettingsScreen
 import com.greentowersolution.driptap.feature_drip.presentation.frequency_settings.FrequencySettingsViewModel
 import com.greentowersolution.driptap.feature_drip.presentation.util.Screen
@@ -44,7 +45,8 @@ fun MainScreen() {
 
     val bottomNavigationItems = listOf(
         Screen.DripFormula,
-        Screen.FrequencySettings
+        Screen.FrequencySettings,
+        Screen.DripValidator
     )
 
     Scaffold(
@@ -64,6 +66,9 @@ fun MainScreen() {
             composable(Screen.FrequencySettings.route) {
                 val viewModel = viewModel<FrequencySettingsViewModel>()
                 FrequencySettingsScreen(viewModel)
+            }
+            composable(Screen.DripValidator.route) {
+                DripValidatorScreen()
             }
         }
     }
