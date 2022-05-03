@@ -21,14 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@Preview(
-    showBackground = true
-)
 @Composable
-fun DripValidatorScreen() {
+fun DripValidatorScreen(
+    dripValidatorViewModel: DripValidatorViewModel
+) {
 
     var isCountingDrops by remember {
         mutableStateOf(false)
@@ -49,7 +47,14 @@ fun DripValidatorScreen() {
                     .fillMaxWidth(fraction = if (isCountingDrops) 0.8f else 1f)
                     .padding(horizontal = 12.dp),
                 onClick = {
-                    isCountingDrops = !isCountingDrops
+                    if (isCountingDrops) {
+                        dripValidatorViewModel.countDrip()
+                    }
+
+                    if (!isCountingDrops) {
+                        isCountingDrops = true
+                        dripValidatorViewModel.resetDripCounter()
+                    }
                 }) {
                 Icon(
                     if (isCountingDrops) Icons.Filled.WaterDrop else Icons.Filled.PlayArrow,
@@ -73,7 +78,7 @@ fun DripValidatorScreen() {
             }
         }
         Card {
-            Text(text = "Quantidade de gotas por minuto: 0")
+            Text(text = "Quantidade de gotas por minuto: ${dripValidatorViewModel.countedDripsPerMinute.value}")
         }
     }
 }
