@@ -1,26 +1,16 @@
 package com.greentowersolution.driptap.feature_drip.presentation.drip_validator
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.WaterDrop
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -80,5 +70,23 @@ fun DripValidatorScreen(
         Card {
             Text(text = "Quantidade de gotas por minuto: ${dripValidatorViewModel.countedDripsPerMinute.value}")
         }
+    }
+}
+
+@Preview(
+    name = "Light mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true,
+)
+@Preview(
+    name = "Dark mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
+@Composable
+fun DripValidatorScreenPreview(){
+    Surface {
+
+        DripValidatorScreen(dripValidatorViewModel = DripValidatorViewModel())
     }
 }

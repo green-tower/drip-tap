@@ -3,10 +3,9 @@ package com.greentowersolution.driptap.feature_drip.presentation.drip_formula
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.greentowersolution.driptap.feature_drip.domain.use_case.DripFormula
-import java.lang.NumberFormatException
 
 class DripFormulaViewModel(
-    private val dripForuma: DripFormula = DripFormula()
+    private val dripFormula: DripFormula = DripFormula()
 ) : ViewModel() {
 
     var volume = mutableStateOf("")
@@ -15,7 +14,7 @@ class DripFormulaViewModel(
     var resultHowMuchDripsPerMinute = mutableStateOf(0L)
 
     fun dripFormula() {
-        resultHowMuchDripsPerMinute.value = dripForuma.invoke(
+        resultHowMuchDripsPerMinute.value = dripFormula.invoke(
             volume = volume.value.toLong(),
             hours = hours.value.toLong(),
             useMicroDrips = useMicroDrips.value
