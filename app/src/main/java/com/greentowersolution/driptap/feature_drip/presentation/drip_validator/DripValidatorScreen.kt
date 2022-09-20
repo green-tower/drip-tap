@@ -7,27 +7,38 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.WaterDrop
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.greentowersolution.driptap.composables.CountDownIndicator
+import com.greentowersolution.driptap.utils.Utility
+import com.greentowersolution.driptap.utils.Utility.formatTime
+
 
 @Composable
 fun DripValidatorScreen(
-    dripValidatorViewModel: DripValidatorViewModel
+    viewModel: DripValidatorViewModel
 ) {
-
-    var isCountingDrops by remember {
-        mutableStateOf(false)
-    }
+    val time by viewModel.time.observeAsState(Utility.TIME_COUNTDOWN.formatTime())
+    val progress by viewModel.progress.observeAsState(1.00F)
+    val isCountingDrops by viewModel.isPlaying.observeAsState(false)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "00:00:00")
+        CountDownIndicator(
+            Modifier.padding(top = 50.dp),
+            progress = progress,
+            time = time,
+            size = 250,
+            stroke = 12
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -38,12 +49,12 @@ fun DripValidatorScreen(
                     .padding(horizontal = 12.dp),
                 onClick = {
                     if (isCountingDrops) {
-                        dripValidatorViewModel.countDrip()
+                        viewModel.countDrip()
                     }
 
                     if (!isCountingDrops) {
-                        isCountingDrops = true
-                        dripValidatorViewModel.resetDripCounter()
+                        viewModel.handleCountDownTimer()
+                        viewModel.resetDripCounter()
                     }
                 }) {
                 Icon(
@@ -58,7 +69,7 @@ fun DripValidatorScreen(
                         .fillMaxWidth(fraction = 1f)
                         .padding(end = 12.dp),
                     onClick = {
-                        isCountingDrops = !isCountingDrops
+                        viewModel.handleCountDownTimer()
                     }) {
                     Icon(
                         Icons.Filled.Pause,
@@ -68,7 +79,7 @@ fun DripValidatorScreen(
             }
         }
         Card {
-            Text(text = "Quantidade de gotas por minuto: ${dripValidatorViewModel.countedDripsPerMinute.value}")
+            Text(text = "Quantidade de gotas por minuto: ${viewModel.countedDripsPerMinute.value}")
         }
     }
 }
@@ -86,7 +97,8 @@ fun DripValidatorScreen(
 @Composable
 fun DripValidatorScreenPreview(){
     Surface {
-
-        DripValidatorScreen(dripValidatorViewModel = DripValidatorViewModel())
+        DripValidatorScreen(
+            viewModel = DripValidatorViewModel()
+        )
     }
 }
