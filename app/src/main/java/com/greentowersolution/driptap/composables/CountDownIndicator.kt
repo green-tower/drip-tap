@@ -19,10 +19,10 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.greentowersolution.driptap.R
+import com.greentowersolution.driptap.ui.theme.ITBlue
+import com.greentowersolution.driptap.ui.theme.ITDarkBlue
 
 @Composable
 fun CountDownIndicator(
@@ -45,7 +45,7 @@ fun CountDownIndicator(
                 modifier = Modifier
                     .height(size.dp)
                     .width(size.dp),
-                color = colorResource(R.color.purple_200),
+                color = ITBlue,
                 stroke
             )
 
@@ -54,14 +54,14 @@ fun CountDownIndicator(
                 modifier = Modifier
                     .height(size.dp)
                     .width(size.dp),
-                color = colorResource(R.color.black),
+                color = ITDarkBlue,
                 strokeWidth = stroke.dp,
             )
 
             Column(modifier = Modifier.align(Alignment.Center)) {
                 Text(
                     text = time,
-                    color = Color.Black,
+                    color = ITBlue,
                     style = MaterialTheme.typography.h2,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     fontWeight = FontWeight.Bold

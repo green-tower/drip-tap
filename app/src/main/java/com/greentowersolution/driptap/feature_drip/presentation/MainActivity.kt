@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.greentowersolution.driptap.composables.CountDownIndicatorViewModel
 import com.greentowersolution.driptap.feature_drip.presentation.drip_formula.DripFormula
 import com.greentowersolution.driptap.feature_drip.presentation.drip_formula.DripFormulaViewModel
 import com.greentowersolution.driptap.feature_drip.presentation.drip_validator.DripValidatorScreen
@@ -68,7 +69,8 @@ fun MainScreen() {
             }
             composable(Screen.DripValidator.route) {
                 val viewModel = viewModel<DripValidatorViewModel>()
-                DripValidatorScreen(viewModel)
+                val countDownViewModel = viewModel<CountDownIndicatorViewModel>()
+                DripValidatorScreen(viewModel, countDownViewModel)
             }
         }
     }
